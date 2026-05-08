@@ -2,7 +2,7 @@
 import { Player } from "./world.jsx";
 
 // ============================================================
-// INDOOR SCENE ??house gallery with project frames
+// INDOOR SCENE - house gallery with project frames
 // ============================================================
 
 const { useEffect: iUseEffect, useMemo: iUseMemo, useRef: iUseRef, useState: iUseState } = React;
@@ -15,16 +15,26 @@ const FRAME_W = 160;
 const FRAME_BODY_H = 144;
 const FRAME_Y = 92;
 const FRAME_SPACING = 260;
-const LETTERBOX_Y = 44;
+const GAME_LETTERBOX_X = 150;
+const GAME_LETTERBOX_Y = 200;
+const MIN_GAME_W = 640;
+const MIN_GAME_H = 420;
+
+function getGameViewport() {
+  return {
+    w: Math.max(MIN_GAME_W, window.innerWidth - GAME_LETTERBOX_X * 2),
+    h: Math.max(MIN_GAME_H, window.innerHeight - GAME_LETTERBOX_Y * 2),
+  };
+}
 
 function HouseInterior({ onExit, onSelectProject, disabled = false }) {
   const D = window.PORTFOLIO_DATA;
   const projects = D.projects;
   const keys = iUseRef({});
-  const [pos, setPos] = iUseState({ x: 118, y: Math.max(360, window.innerHeight - 220) });
+  const [pos, setPos] = iUseState(() => ({ x: 118, y: Math.max(360, getGameViewport().h - 220) }));
   const [dir, setDir] = iUseState("right");
   const [moving, setMoving] = iUseState(false);
-  const [vp, setVp] = iUseState({ w: window.innerWidth, h: window.innerHeight });
+  const [vp, setVp] = iUseState(getGameViewport);
 
   const frames = iUseMemo(() => {
     const startX = 360;
@@ -35,7 +45,7 @@ function HouseInterior({ onExit, onSelectProject, disabled = false }) {
     }));
   }, [projects]);
 
-  const stageH = Math.max(420, vp.h - LETTERBOX_Y * 2);
+  const stageH = vp.h;
   const floorTop = Math.round(stageH * 0.7) + 20;
   const walkTop = Math.min(stageH - PLAYER_H * PLAYER_SCALE - 64, floorTop);
   const walkBottom = stageH - 30;
@@ -45,7 +55,7 @@ function HouseInterior({ onExit, onSelectProject, disabled = false }) {
   const camX = Math.max(0, Math.min(ROOM_W - vp.w, pos.x + PLAYER_W / 2 - vp.w / 2));
 
   iUseEffect(() => {
-    const onResize = () => setVp({ w: window.innerWidth, h: window.innerHeight });
+    const onResize = () => setVp(getGameViewport());
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
@@ -130,9 +140,9 @@ function HouseInterior({ onExit, onSelectProject, disabled = false }) {
       zIndex: 200,
       overflow:"hidden",
     }}>
-      {/* room base ??wide horizontal hall */}
+      {/* room base - wide horizontal hall */}
       <div style={{
-        position:"absolute", left:0, right:0, top: LETTERBOX_Y, bottom: LETTERBOX_Y,
+        position:"absolute", inset: 0,
         overflow:"hidden",
       }}>
       <div style={{
@@ -183,7 +193,7 @@ function HouseInterior({ onExit, onSelectProject, disabled = false }) {
               transparent 0px, transparent 80px,
               rgba(0,0,0,0.08) 80px, rgba(0,0,0,0.08) 82px)`,
           }}/>
-          {/* rug ??long runner */}
+          {/* rug - long runner */}
           <div style={{
             position:"absolute", left:"50%", top: 30,
             transform:"translateX(-50%)",
@@ -212,9 +222,10 @@ function HouseInterior({ onExit, onSelectProject, disabled = false }) {
           padding:"8px 16px",
           zIndex: 5,
         }}>
-          ??SOLAR'S WORKSHOP 쨌 GALLERY ??        </div>
+          SOLAR 작업실 - 프로젝트 갤러리
+        </div>
 
-        {/* Frames ??single row, lined up along the back wall */}
+        {/* Frames - single row, lined up along the back wall */}
         {frames.map(({ project, x, y }) => (
           <Frame
             key={project.id}
@@ -250,7 +261,7 @@ function HouseInterior({ onExit, onSelectProject, disabled = false }) {
             background:"var(--neon-yellow)", color:"#000",
             padding:"4px 8px", whiteSpace:"nowrap",
             animation:"bob 0.6s ease-in-out infinite alternate",
-          }}>??EXIT [E]</div>
+          }}>나가기 [E]</div>
         </div>
 
         <div className="player" style={{
@@ -303,7 +314,7 @@ function Frame({ project, x, y, near, onClick }) {
         background:"#3a2d1a",
       }}/>
 
-      {/* outer frame ??gold */}
+      {/* outer frame - gold */}
       <div style={{
         width:"100%", height: FRAME_BODY_H,
         background:`
@@ -317,7 +328,7 @@ function Frame({ project, x, y, near, onClick }) {
         padding: 8,
         position:"relative",
       }}>
-        {/* inner frame ??dark */}
+        {/* inner frame - dark */}
         <div style={{
           width:"100%", height:"100%",
           background:"#2d1a52",
@@ -328,7 +339,7 @@ function Frame({ project, x, y, near, onClick }) {
           padding: 5,
           position:"relative",
         }}>
-          {/* "canvas" ??project thumbnail (procedural) */}
+          {/* "canvas" - project thumbnail (procedural) */}
           <div style={{
             width:"100%", height:"100%",
             background: `linear-gradient(135deg, ${p.thumbColor[0]} 0%, ${p.thumbColor[1]} 100%)`,
@@ -385,7 +396,7 @@ function Frame({ project, x, y, near, onClick }) {
           background:"var(--neon-yellow)", color:"#000",
           padding:"4px 8px", whiteSpace:"nowrap",
           animation:"bob 0.6s ease-in-out infinite alternate",
-        }}>??VIEW [E]</div>
+        }}>보기 [E]</div>
       )}
     </div>
   );

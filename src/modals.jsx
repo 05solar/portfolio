@@ -1,10 +1,17 @@
 import React from "react";
+import { Player } from "./world.jsx";
 
 // ============================================================
-// MODAL PANELS — Sign dialogue, Project detail
+// MODAL PANELS - sign dialogue and project detail
 // ============================================================
 
-const { useState: mUseState } = React;
+const rarityLabel = {
+  common: "일반",
+  uncommon: "고급",
+  rare: "희귀",
+  epic: "영웅",
+  legendary: "전설",
+};
 
 function ModalShell({ title, code, onClose, children, footerLeft, footerRight }) {
   return (
@@ -13,16 +20,16 @@ function ModalShell({ title, code, onClose, children, footerLeft, footerRight })
     }}>
       <div className="modal bevel-thick">
         <div className="title-bar">
-          <span>▶ {title} {code && <span style={{color:"var(--neon-yellow)", marginLeft:8}}>[{code}]</span>}</span>
+          <span>{title} {code && <span style={{color:"var(--neon-yellow)", marginLeft:8}}>[{code}]</span>}</span>
           <div className="controls">
             <div className="ctrl-btn">_</div>
             <div className="ctrl-btn">□</div>
-            <div className="ctrl-btn" onClick={onClose} style={{color:"var(--neon-red)", cursor:"pointer"}}>×</div>
+            <div className="ctrl-btn" onClick={onClose} style={{color:"var(--neon-red)", cursor:"pointer"}}>X</div>
           </div>
         </div>
         <div className="modal-body">{children}</div>
         <div className="modal-footer">
-          <span>{footerLeft || <><span className="kbd">ESC</span> CLOSE</>}</span>
+          <span>{footerLeft || <><span className="kbd">ESC</span> 닫기</>}</span>
           <span>{footerRight || "SOLAR.EXE v1.2.6"}</span>
         </div>
       </div>
@@ -30,31 +37,17 @@ function ModalShell({ title, code, onClose, children, footerLeft, footerRight })
   );
 }
 
-// ============================================================
-// SIGN MODAL — dispatches to about/skills/quests view
-// ============================================================
 function SignModal({ sign, onClose }) {
-  const c = sign.content;
-  if (sign.kind === "about") {
-    return <AboutSign sign={sign} onClose={onClose}/>;
-  }
-  if (sign.kind === "skills") {
-    return <SkillsSign sign={sign} onClose={onClose}/>;
-  }
-  if (sign.kind === "quests") {
-    return <QuestsSign sign={sign} onClose={onClose}/>;
-  }
+  if (sign.kind === "about") return <AboutSign sign={sign} onClose={onClose}/>;
+  if (sign.kind === "skills") return <SkillsSign sign={sign} onClose={onClose}/>;
+  if (sign.kind === "quests") return <QuestsSign sign={sign} onClose={onClose}/>;
   return null;
 }
 
-// ============================================================
-// ABOUT SIGN — character intro with dialogue feel
-// ============================================================
 function AboutSign({ sign, onClose }) {
   const c = sign.content;
   return (
     <ModalShell title={sign.title} code="ABOUT.DAT" onClose={onClose}>
-      {/* Dialogue header */}
       <div style={{display:"flex", gap:18, marginBottom:18}}>
         <div style={{
           width: 110, height: 130,
@@ -74,7 +67,6 @@ function AboutSign({ sign, onClose }) {
           <div style={{position:"absolute", left:"50%", top:"58%", transform:"translate(-50%,-50%) scale(2)"}}>
             <Player dir="down" moving={false}/>
           </div>
-          {/* corner pixels */}
           <div style={{position:"absolute", top:4, left:4, width:6, height:6, background:"var(--neon-magenta)"}}/>
           <div style={{position:"absolute", top:4, right:4, width:6, height:6, background:"var(--neon-cyan)"}}/>
           <div style={{position:"absolute", bottom:4, left:4, width:6, height:6, background:"var(--neon-yellow)"}}/>
@@ -85,7 +77,6 @@ function AboutSign({ sign, onClose }) {
           <div style={{fontFamily:"var(--font-pixel)", fontSize:14, color:"var(--neon-yellow)", textShadow:"2px 2px 0 #000", marginBottom:6}}>
             {c.heading}
           </div>
-          {/* dialogue bubble */}
           <div style={{
             background:"var(--bg-tile)",
             borderTop:"2px solid var(--bevel-deepest)",
@@ -99,11 +90,10 @@ function AboutSign({ sign, onClose }) {
           }}>
             {c.lines.map((line, i) => (
               <div key={i} style={{display:"flex", gap:6}}>
-                <span style={{color:"var(--neon-magenta)"}}>▸</span>
+                <span style={{color:"var(--neon-magenta)"}}>›</span>
                 <span>{line}</span>
               </div>
             ))}
-            {/* tail */}
             <div style={{
               position:"absolute", left:-8, top: 14,
               width:0, height:0,
@@ -115,10 +105,9 @@ function AboutSign({ sign, onClose }) {
         </div>
       </div>
 
-      {/* attributes */}
       <div className="bevel-inset" style={{padding:14, marginBottom:14}}>
         <div style={{fontFamily:"var(--font-pixel)", fontSize:10, color:"var(--neon-cyan)", marginBottom:10, letterSpacing:1}}>
-          ▣ ATTRIBUTES
+          능력치
         </div>
         <div style={{display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"6px 16px"}}>
           {Object.entries(c.attributes).map(([k,v]) => (
@@ -127,15 +116,14 @@ function AboutSign({ sign, onClose }) {
         </div>
       </div>
 
-      {/* meta */}
       <div className="bevel-inset" style={{padding:14}}>
         <div style={{fontFamily:"var(--font-pixel)", fontSize:10, color:"var(--neon-cyan)", marginBottom:10, letterSpacing:1}}>
-          ▣ PROFILE METADATA
+          프로필 정보
         </div>
         <div className="stat-grid">
           {c.meta.map(m => (
             <div key={m.l} className="stat-line">
-              <span className="l">▸ {m.l}</span>
+              <span className="l">{m.l}</span>
               <span className="v">{m.v}</span>
             </div>
           ))}
@@ -161,9 +149,6 @@ function AttrRow({ label, value }) {
   );
 }
 
-// ============================================================
-// SKILLS SIGN — list of skills with bars
-// ============================================================
 function SkillsSign({ sign, onClose }) {
   const c = sign.content;
   const colorMap = {
@@ -184,7 +169,7 @@ function SkillsSign({ sign, onClose }) {
         <div style={{fontFamily:"var(--font-pixel)", fontSize:14, color: accent, marginBottom:6, textShadow:`0 0 8px ${accent}`}}>
           {c.heading}
         </div>
-        <div style={{color:"var(--ink-dim)"}}>❝ {c.intro} ❞</div>
+        <div style={{color:"var(--ink-dim)"}}>{c.intro}</div>
       </div>
 
       <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap: 10}}>
@@ -205,10 +190,10 @@ function SkillCard({ skill, accent }) {
     <div className="bevel-inset" style={{padding:"10px 12px", opacity: skill.locked ? 0.5 : 1}}>
       <div style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
         <div style={{fontFamily:"var(--font-pixel)", fontSize:11, color: skill.locked ? "var(--ink-mute)" : "var(--ink)"}}>
-          {skill.locked && "🔒 "}{skill.name}
+          {skill.locked && "잠김 "}{skill.name}
         </div>
         <div style={{fontFamily:"var(--font-pixel)", fontSize:10, color: isMax ? "var(--neon-magenta)" : accent, textShadow: isMax ? `0 0 6px var(--neon-magenta)` : "none"}}>
-          {isMax && "★ "}{skill.lvl}
+          {isMax ? "최대" : skill.lvl}
         </div>
       </div>
       <div style={{height:8, background:"var(--bevel-deepest)", border:"1px solid var(--bevel-mid)", margin:"6px 0"}}>
@@ -223,9 +208,6 @@ function SkillCard({ skill, accent }) {
   );
 }
 
-// ============================================================
-// QUESTS SIGN — adventure log
-// ============================================================
 function QuestsSign({ sign, onClose }) {
   const c = sign.content;
   return (
@@ -240,7 +222,7 @@ function QuestsSign({ sign, onClose }) {
         <div style={{fontFamily:"var(--font-pixel)", fontSize:14, color:"var(--neon-yellow)", marginBottom:6, textShadow:"0 0 8px var(--neon-yellow)"}}>
           {c.heading}
         </div>
-        <div style={{color:"var(--ink-dim)"}}>❝ {c.intro} ❞</div>
+        <div style={{color:"var(--ink-dim)"}}>{c.intro}</div>
       </div>
 
       <div className="quest-list">
@@ -255,7 +237,7 @@ function QuestsSign({ sign, onClose }) {
             <div className="quest-reward">
               <span className="xp">{q.xp}</span>
               <span className="status">
-                {q.state === "completed" ? "✓ CLEAR" : q.state === "active" ? "▶ ONGOING" : "? LOCKED"}
+                {q.state === "completed" ? "완료" : q.state === "active" ? "진행 중" : "잠김"}
               </span>
             </div>
           </div>
@@ -265,9 +247,6 @@ function QuestsSign({ sign, onClose }) {
   );
 }
 
-// ============================================================
-// PROJECT MODAL — when frame clicked in house interior
-// ============================================================
 function ProjectModal({ project, onClose }) {
   const item = project;
   const rarityColor = {
@@ -279,9 +258,8 @@ function ProjectModal({ project, onClose }) {
   }[item.rarity];
 
   return (
-    <ModalShell title="PROJECT INSPECT" code={item.name} onClose={onClose}>
+    <ModalShell title="프로젝트 보기" code={item.name} onClose={onClose}>
       <div style={{display:"grid", gridTemplateColumns:"260px 1fr", gap: 20}}>
-        {/* big framed thumb */}
         <div>
           <div style={{
             width:"100%", aspectRatio:"4/5",
@@ -303,7 +281,7 @@ function ProjectModal({ project, onClose }) {
             fontFamily:"var(--font-mono)", fontSize:14, textAlign:"center",
             color:"var(--neon-yellow)", letterSpacing:1,
           }}>
-            ▸ ACQUIRED · {item.yr}
+            획득 연도 - {item.yr}
           </div>
         </div>
 
@@ -321,7 +299,7 @@ function ProjectModal({ project, onClose }) {
               padding:"3px 8px",
               border:`1px solid ${rarityColor}`,
               color: rarityColor,
-            }}>{item.rarity.toUpperCase()}</div>
+            }}>{rarityLabel[item.rarity] || item.rarity}</div>
           </div>
 
           <div className="bevel-inset" style={{padding:14, fontFamily:"var(--font-mono)", fontSize:17, lineHeight:1.5, color:"var(--ink)"}}>
@@ -329,12 +307,12 @@ function ProjectModal({ project, onClose }) {
           </div>
 
           <div className="bevel-inset" style={{padding:"10px 14px"}}>
-            <div style={{fontFamily:"var(--font-pixel)", fontSize:9, color:"var(--neon-cyan)", marginBottom:8}}>▣ STATS</div>
+            <div style={{fontFamily:"var(--font-pixel)", fontSize:9, color:"var(--neon-cyan)", marginBottom:8}}>상세 정보</div>
             <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px 20px"}}>
               {item.stats.map((s,i) => (
                 <div key={i} style={{display:"flex", justifyContent:"space-between", alignItems:"center", borderBottom:"1px dashed var(--bevel-mid)", padding:"6px 0", fontFamily:"var(--font-mono)", fontSize:14}}>
-                  <span style={{color:"var(--ink-dim)"}}>▸ {s[0]}</span>
-                  <span style={{color: s[0]==="TIER" ? rarityColor : "var(--neon-green)", fontFamily:"var(--font-mono)", fontSize:14}}>{s[1]}</span>
+                  <span style={{color:"var(--ink-dim)"}}>{s[0]}</span>
+                  <span style={{color: s[0]==="등급" ? rarityColor : "var(--neon-green)", fontFamily:"var(--font-mono)", fontSize:14}}>{s[1]}</span>
                 </div>
               ))}
             </div>
@@ -364,7 +342,7 @@ function ProjectModal({ project, onClose }) {
                 textDecoration:"none",
               }}
             >
-              OPEN GITHUB
+              GitHub 열기
             </a>
           )}
         </div>
