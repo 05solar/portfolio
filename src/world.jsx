@@ -2,8 +2,8 @@
 
 const { useMemo: vUseMemo } = React;
 
-const WORLD_MAP_W = 1700;
-const WORLD_MAP_H = 1100;
+const WORLD_MAP_W = 1900;
+const WORLD_MAP_H = 1300;
 
 const PATH_POINTS = [
   [180, 800],
