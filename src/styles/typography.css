@@ -1,0 +1,16 @@
+/* ====== TYPOGRAPHY ====== */
+.pixel { font-family: var(--font-pixel); letter-spacing: 1px; }
+.mono  { font-family: var(--font-mono); }
+.ui    { font-family: var(--font-ui); }
+
+.text-cyan    { color: var(--neon-cyan); }
+.text-magenta { color: var(--neon-magenta); }
+.text-yellow  { color: var(--neon-yellow); }
+.text-green   { color: var(--neon-green); }
+.text-pink    { color: var(--neon-pink); }
+.text-red     { color: var(--neon-red); }
+.text-dim     { color: var(--ink-dim); }
+
+.glow-cyan    { text-shadow: 0 0 8px var(--neon-cyan), 0 0 16px var(--neon-cyan); }
+.glow-magenta { text-shadow: 0 0 8px var(--neon-magenta), 0 0 16px var(--neon-magenta); }
+.glow-yellow  { text-shadow: 0 0 8px var(--neon-yellow); }

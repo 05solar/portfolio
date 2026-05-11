@@ -1,4 +1,5 @@
 import React from "react";
+import "./styles/hud.css";
 
 // ============================================================
 // HUD COMPONENTS

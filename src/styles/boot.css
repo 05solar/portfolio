@@ -1,0 +1,70 @@
+/* ====== BOOT SCREEN ====== */
+.boot-screen {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-void);
+  z-index: 8000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 60px 80px;
+  font-family: var(--font-mono);
+  font-size: 22px;
+  color: var(--neon-cyan);
+  transition: opacity 0.5s;
+}
+.boot-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.boot-bios {
+  white-space: pre-line;
+  line-height: 1.4;
+  text-shadow: 0 0 6px var(--neon-cyan);
+}
+.boot-press-start {
+  text-align: center;
+  font-family: var(--font-pixel);
+  font-size: 28px;
+  color: var(--neon-yellow);
+  text-shadow: 0 0 12px var(--neon-yellow), 0 0 24px var(--neon-orange);
+  animation: blink 1s steps(2) infinite;
+}
+
+.boot-logo {
+  font-family: var(--font-pixel);
+  font-size: 56px;
+  text-align: center;
+  color: var(--neon-magenta);
+  text-shadow:
+    3px 0 0 var(--neon-cyan),
+    -3px 0 0 var(--neon-yellow),
+    0 0 30px var(--neon-magenta);
+  letter-spacing: 4px;
+}
+.boot-subtitle {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--ink-dim);
+  margin-top: 14px;
+  letter-spacing: 4px;
+}
+
+.boot-progress {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--neon-green);
+  text-shadow: 0 0 4px var(--neon-green);
+}
+.boot-progress .line { display: block; opacity: 0; animation: type-in 0.3s forwards; }
+.boot-progress .line:nth-child(1) { animation-delay: 0.1s; }
+.boot-progress .line:nth-child(2) { animation-delay: 0.4s; }
+.boot-progress .line:nth-child(3) { animation-delay: 0.7s; }
+.boot-progress .line:nth-child(4) { animation-delay: 1.0s; }
+.boot-progress .line:nth-child(5) { animation-delay: 1.3s; }
+.boot-progress .line:nth-child(6) { animation-delay: 1.6s; }
+@keyframes type-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

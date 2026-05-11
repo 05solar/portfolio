@@ -1,0 +1,57 @@
+/* ====== BEVEL UI ====== */
+.bevel {
+  background: var(--bg-panel);
+  border-top: 2px solid var(--bevel-light);
+  border-left: 2px solid var(--bevel-light);
+  border-right: 2px solid var(--bevel-deepest);
+  border-bottom: 2px solid var(--bevel-deepest);
+  box-shadow:
+    inset 1px 1px 0 rgba(255,255,255,0.08),
+    inset -1px -1px 0 rgba(0,0,0,0.5);
+}
+.bevel-inset {
+  background: var(--bg-tile);
+  border-top: 2px solid var(--bevel-deepest);
+  border-left: 2px solid var(--bevel-deepest);
+  border-right: 2px solid var(--bevel-light);
+  border-bottom: 2px solid var(--bevel-light);
+}
+.bevel-thick {
+  border-top: 4px solid var(--bevel-light);
+  border-left: 4px solid var(--bevel-light);
+  border-right: 4px solid var(--bevel-deepest);
+  border-bottom: 4px solid var(--bevel-deepest);
+  background: var(--bg-panel);
+}
+
+/* Title bar */
+.title-bar {
+  background: linear-gradient(90deg, var(--neon-magenta) 0%, var(--neon-purple) 100%);
+  color: #fff;
+  padding: 6px 10px;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 0 #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.title-bar .controls {
+  display: flex;
+  gap: 4px;
+}
+.title-bar .ctrl-btn {
+  width: 18px; height: 18px;
+  background: var(--bg-panel);
+  border-top: 2px solid var(--bevel-light);
+  border-left: 2px solid var(--bevel-light);
+  border-right: 2px solid var(--bevel-deepest);
+  border-bottom: 2px solid var(--bevel-deepest);
+  color: var(--ink);
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-pixel);
+}

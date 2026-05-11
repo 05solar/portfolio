@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import "./styles.css";
+import "./styles/global.css";
 import "./data.js";
 import "./tweaks-panel.jsx";
 import "./world.jsx";

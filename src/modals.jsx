@@ -1,5 +1,10 @@
 import React from "react";
 import { Player } from "./world.jsx";
+import "./styles/modal.css";
+import "./styles/about.css";
+import "./styles/skills.css";
+import "./styles/inventory.css";
+import "./styles/quests.css";
 
 // ============================================================
 // MODAL PANELS - sign dialogue and project detail

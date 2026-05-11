@@ -1,0 +1,68 @@
+/* ====== SKILL TREE ====== */
+.skill-tree {
+  position: relative;
+  min-height: 480px;
+  padding: 30px 20px;
+}
+.skill-tree-svg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.skill-node {
+  position: absolute;
+  width: 92px;
+  text-align: center;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+}
+.skill-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  background: var(--bg-panel-2);
+  border-top: 3px solid var(--bevel-light);
+  border-left: 3px solid var(--bevel-light);
+  border-right: 3px solid var(--bevel-deepest);
+  border-bottom: 3px solid var(--bevel-deepest);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-pixel);
+  font-size: 18px;
+  color: var(--neon-cyan);
+  position: relative;
+}
+.skill-node.locked .skill-icon {
+  color: var(--ink-mute);
+  background: var(--bg-tile);
+  filter: grayscale(0.7);
+}
+.skill-node.maxed .skill-icon {
+  background: var(--neon-magenta);
+  color: #000;
+  box-shadow: 0 0 16px var(--neon-magenta);
+}
+.skill-node.maxed .skill-icon::before {
+  content: "★";
+  position: absolute;
+  top: -8px; right: -8px;
+  font-size: 14px;
+  color: var(--neon-yellow);
+  text-shadow: 0 0 8px var(--neon-yellow);
+}
+.skill-name {
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  color: var(--ink);
+  margin-top: 6px;
+  text-shadow: 1px 1px 0 #000;
+}
+.skill-level {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--neon-yellow);
+  margin-top: 2px;
+}
+.skill-node.locked .skill-name,
+.skill-node.locked .skill-level { color: var(--ink-mute); }

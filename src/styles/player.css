@@ -1,0 +1,304 @@
+/* ====== PLAYER ====== */
+.player {
+  position: absolute;
+  width: 32px;
+  height: 48px;
+  z-index: 100;
+  transition: none;
+  image-rendering: pixelated;
+}
+
+.player-shadow {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 8px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+.player-sprite {
+  transform-origin: 50% 74%;
+}
+
+.player-attack::after {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 4px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 216, 77, 0.55);
+  box-shadow: 0 0 18px rgba(255, 216, 77, 0.7), inset 0 0 18px rgba(255, 110, 199, 0.2);
+  animation: playerAttackBurst 0.32s steps(4) both;
+  z-index: 2;
+}
+
+.player-attack-arm {
+  position: absolute;
+  left: 23px;
+  top: 25px;
+  width: 8px;
+  height: 26px;
+  border-radius: 4px;
+  background: #ffd9c6;
+  box-shadow: inset -2px -2px 0 #e4aa90, 0 0 10px rgba(255, 216, 77, 0.75);
+  transform-origin: 4px 4px;
+  animation: playerArmSwing 0.32s steps(4) both;
+  z-index: 5;
+}
+
+.player-attack-slash {
+  position: absolute;
+  left: 25px;
+  top: 0;
+  width: 66px;
+  height: 66px;
+  border-top: 8px solid var(--neon-yellow);
+  border-right: 8px solid rgba(255, 255, 255, 0.95);
+  border-bottom: 3px solid rgba(255, 110, 199, 0.7);
+  border-radius: 50%;
+  filter: drop-shadow(0 0 14px var(--neon-yellow));
+  transform: rotate(28deg) scale(0.4);
+  transform-origin: 0 50%;
+  animation: playerSlash 0.32s steps(5) both;
+  z-index: 6;
+}
+
+.player-attack-slash::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 9px;
+  width: 38px;
+  height: 38px;
+  border-top: 4px solid rgba(255, 255, 255, 0.85);
+  border-right: 4px solid rgba(99, 230, 255, 0.9);
+  border-radius: 50%;
+}
+
+.player-attack-up .player-attack-arm {
+  left: 14px;
+  top: 9px;
+  transform-origin: 4px 22px;
+}
+
+.player-attack-up .player-attack-slash {
+  left: -17px;
+  top: -53px;
+  transform-origin: 50% 100%;
+}
+
+.player-attack-down .player-attack-arm {
+  left: 23px;
+  top: 31px;
+}
+
+.player-attack-down .player-attack-slash {
+  left: -8px;
+  top: 34px;
+  transform-origin: 50% 0;
+}
+
+.player-hit {
+  animation: playerHitJolt 0.34s steps(2) both !important;
+  filter: drop-shadow(0 0 8px var(--neon-red));
+}
+
+.player-hit-flash {
+  position: absolute;
+  inset: -3px;
+  background: rgba(255, 72, 92, 0.35);
+  mix-blend-mode: screen;
+  animation: combatFlash 0.32s steps(2) both;
+  z-index: 5;
+}
+
+/* ====== MONSTERS ====== */
+.monster-node {
+  transform-origin: 50% 65%;
+}
+
+.monster-node-hit {
+  animation: monsterHitJolt 0.3s steps(3) both;
+  filter: brightness(1.45) drop-shadow(0 0 10px var(--neon-red));
+}
+
+.monster-hit-flash {
+  position: absolute;
+  inset: 2px;
+  background: rgba(255, 255, 255, 0.45);
+  clip-path: polygon(50% 0, 62% 35%, 100% 48%, 64% 62%, 50% 100%, 36% 62%, 0 48%, 38% 35%);
+  mix-blend-mode: screen;
+  animation: combatFlash 0.28s steps(2) both;
+  z-index: 6;
+}
+
+.monster-hit-spark {
+  position: absolute;
+  left: 21px;
+  top: 16px;
+  width: 5px;
+  height: 5px;
+  background: var(--neon-yellow);
+  box-shadow: 0 0 8px var(--neon-yellow);
+  z-index: 7;
+}
+
+.monster-hit-spark-a { animation: sparkA 0.32s steps(3) both; }
+.monster-hit-spark-b { animation: sparkB 0.32s steps(3) both; }
+.monster-hit-spark-c { animation: sparkC 0.32s steps(3) both; }
+
+/* ====== GOLD DROP ====== */
+.gold-drop {
+  animation: goldDropLand 0.34s steps(4) both, goldDropFloat 0.85s ease-in-out 0.34s infinite alternate;
+  filter: drop-shadow(0 0 7px rgba(255, 216, 77, 0.85));
+}
+
+.gold-drop-shadow {
+  position: absolute;
+  left: 3px;
+  bottom: -3px;
+  width: 20px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.45);
+  filter: blur(2px);
+}
+
+.gold-drop-coin {
+  position: absolute;
+  left: 5px;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ffd84d;
+  border: 2px solid #fff1a8;
+  box-shadow: inset -4px -3px 0 #d49a20, inset 3px 2px 0 #fff6c7, 0 0 12px #ffd84d;
+}
+
+.gold-drop-coin::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 3px;
+  width: 3px;
+  height: 8px;
+  background: #a66a12;
+  box-shadow: 4px 0 0 rgba(166, 106, 18, 0.7);
+}
+
+.gold-drop-spark {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #fff6c7;
+  box-shadow: 0 0 6px #fff6c7;
+}
+
+.gold-drop-spark-a {
+  left: 0;
+  top: 4px;
+  animation: goldSpark 0.8s steps(2) infinite;
+}
+
+.gold-drop-spark-b {
+  right: 0;
+  top: 13px;
+  animation: goldSpark 0.8s steps(2) 0.25s infinite;
+}
+
+.gold-drop-near .gold-drop-coin {
+  box-shadow: inset -4px -3px 0 #d49a20, inset 3px 2px 0 #fff6c7, 0 0 18px var(--neon-yellow);
+}
+
+.gold-drop-prompt {
+  position: absolute;
+  left: 50%;
+  top: -24px;
+  transform: translateX(-50%);
+  padding: 3px 6px;
+  background: var(--neon-yellow);
+  color: #000;
+  font-family: var(--font-pixel);
+  font-size: 7px;
+  white-space: nowrap;
+  animation: bob 0.6s ease-in-out infinite alternate;
+}
+
+/* ====== COMBAT ANIMATIONS ====== */
+@keyframes playerArmSwing {
+  0%   { transform: rotate(-62deg) translateY(-2px); }
+  42%  { transform: rotate(84deg) translate(10px, -8px); }
+  100% { transform: rotate(18deg) translate(2px, 2px); opacity: 0; }
+}
+
+@keyframes playerSlash {
+  0%   { opacity: 0; transform: rotate(-40deg) scale(0.25); }
+  35%  { opacity: 1; transform: rotate(14deg) scale(1.18); }
+  72%  { opacity: 0.85; transform: rotate(54deg) scale(1.35); }
+  100% { opacity: 0; transform: rotate(82deg) scale(1.55); }
+}
+
+@keyframes playerAttackBurst {
+  0%   { opacity: 0; transform: scale(0.25); }
+  40%  { opacity: 0.75; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.35); }
+}
+
+@keyframes playerHitJolt {
+  0%   { transform: translate(0, 0); opacity: 1; }
+  25%  { transform: translate(-4px, 1px); opacity: 0.6; }
+  50%  { transform: translate(4px, -1px); opacity: 1; }
+  75%  { transform: translate(-2px, 0); opacity: 0.7; }
+  100% { transform: translate(0, 0); opacity: 1; }
+}
+
+@keyframes monsterHitJolt {
+  0%   { transform: translate(0, 0) scale(1); }
+  30%  { transform: translate(7px, -2px) scale(1.08, 0.92); }
+  60%  { transform: translate(-4px, 1px) scale(0.95, 1.08); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes combatFlash {
+  0%   { opacity: 0; }
+  35%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes sparkA {
+  0%   { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(18px, -15px); opacity: 0; }
+}
+
+@keyframes sparkB {
+  0%   { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(-14px, -10px); opacity: 0; }
+}
+
+@keyframes sparkC {
+  0%   { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(6px, 16px); opacity: 0; }
+}
+
+@keyframes goldDropLand {
+  0%   { transform: translateY(-22px) scale(0.7); opacity: 0; }
+  70%  { transform: translateY(3px) scale(1.1); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes goldDropFloat {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-3px); }
+}
+
+@keyframes goldSpark {
+  0%, 49%   { opacity: 0; transform: scale(0.5); }
+  50%, 100% { opacity: 1; transform: scale(1); }
+}

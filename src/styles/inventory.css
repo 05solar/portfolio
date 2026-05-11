@@ -1,0 +1,137 @@
+/* ====== INVENTORY (Projects) ====== */
+.inventory {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 16px;
+  height: 540px;
+}
+.inv-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 80px;
+  gap: 4px;
+  padding: 10px;
+  background: var(--bg-tile);
+  border-top: 2px solid var(--bevel-deepest);
+  border-left: 2px solid var(--bevel-deepest);
+  border-right: 2px solid var(--bevel-light);
+  border-bottom: 2px solid var(--bevel-light);
+  align-content: start;
+}
+.inv-slot {
+  background: var(--bg-panel);
+  border-top: 2px solid var(--bevel-light);
+  border-left: 2px solid var(--bevel-light);
+  border-right: 2px solid var(--bevel-deepest);
+  border-bottom: 2px solid var(--bevel-deepest);
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-pixel);
+  font-size: 9px;
+}
+.inv-slot.empty {
+  background: var(--bevel-deepest);
+  border-color: var(--bevel-mid);
+  cursor: default;
+}
+.inv-slot.empty:after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  background: repeating-linear-gradient(45deg,
+    transparent 0, transparent 4px,
+    rgba(90,79,128,0.2) 4px, rgba(90,79,128,0.2) 5px);
+}
+.inv-slot.selected {
+  outline: 2px solid var(--neon-yellow);
+  outline-offset: -2px;
+  animation: blink 0.4s steps(2) infinite;
+}
+.inv-slot .item-rarity {
+  position: absolute;
+  bottom: 2px; left: 2px;
+  font-family: var(--font-pixel);
+  font-size: 7px;
+  padding: 1px 3px;
+  background: rgba(0,0,0,0.7);
+}
+.inv-slot .item-stack {
+  position: absolute;
+  bottom: 2px; right: 2px;
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  color: var(--neon-yellow);
+  text-shadow: 1px 1px 0 #000;
+}
+
+.item-detail {
+  background: var(--bg-tile);
+  border-top: 2px solid var(--bevel-deepest);
+  border-left: 2px solid var(--bevel-deepest);
+  border-right: 2px solid var(--bevel-light);
+  border-bottom: 2px solid var(--bevel-light);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+.item-name {
+  font-family: var(--font-pixel);
+  font-size: 16px;
+  color: var(--neon-yellow);
+  text-shadow: 2px 2px 0 var(--bevel-deepest);
+}
+.item-type {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--neon-cyan);
+  letter-spacing: 1px;
+}
+.item-divider {
+  height: 2px;
+  background: repeating-linear-gradient(90deg,
+    var(--bevel-mid) 0, var(--bevel-mid) 4px,
+    transparent 4px, transparent 8px);
+  margin: 4px 0;
+}
+.item-desc {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.item-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 12px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+}
+.item-stats .key { color: var(--ink-dim); }
+.item-stats .val { color: var(--neon-green); text-align: right; }
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
+}
+.tag {
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  padding: 3px 6px;
+  background: var(--bg-panel-2);
+  border: 1px solid var(--bevel-light);
+  color: var(--neon-cyan);
+}
+
+/* Rarity colors */
+.rarity-common    { color: #cccccc; border-color: #cccccc; }
+.rarity-uncommon  { color: var(--neon-green); border-color: var(--neon-green); }
+.rarity-rare      { color: var(--neon-cyan); border-color: var(--neon-cyan); }
+.rarity-epic      { color: var(--neon-purple); border-color: var(--neon-purple); }
+.rarity-legendary { color: var(--neon-yellow); border-color: var(--neon-yellow); }

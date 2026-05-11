@@ -1,0 +1,67 @@
+/* ====== MODAL ====== */
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5,2,15,0.75);
+  z-index: 7000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fade-in 0.15s;
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.modal {
+  width: min(960px, 95%);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-ui);
+  animation: modal-in 0.2s ease-out;
+}
+@keyframes modal-in {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+.modal-body::-webkit-scrollbar { width: 14px; }
+.modal-body::-webkit-scrollbar-track {
+  background: var(--bevel-deepest);
+}
+.modal-body::-webkit-scrollbar-thumb {
+  background: var(--bg-panel);
+  border-top: 2px solid var(--bevel-light);
+  border-left: 2px solid var(--bevel-light);
+  border-right: 2px solid var(--bevel-deepest);
+  border-bottom: 2px solid var(--bevel-deepest);
+}
+
+.modal-footer {
+  padding: 8px 12px;
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  color: var(--ink-dim);
+  display: flex;
+  justify-content: space-between;
+  border-top: 2px solid var(--bevel-deepest);
+}
+.kbd {
+  display: inline-block;
+  background: var(--bg-panel-2);
+  border-top: 2px solid var(--bevel-light);
+  border-left: 2px solid var(--bevel-light);
+  border-right: 2px solid var(--bevel-deepest);
+  border-bottom: 2px solid var(--bevel-deepest);
+  padding: 3px 7px;
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  color: var(--neon-yellow);
+  margin: 0 3px;
+}

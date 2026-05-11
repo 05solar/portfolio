@@ -1,4 +1,6 @@
-﻿import React from "react";
+import React from "react";
+import "./styles/world.css";
+import "./styles/player.css";
 
 const { useMemo: vUseMemo } = React;
 
@@ -72,7 +74,7 @@ function VillageBackground({
         fontSize: 18, letterSpacing: 4,
         color: "rgba(180,140,255,0.18)",
       }}>
-        SOLAR 留덉쓣 - ???3
+        SOLAR 留덉쓣 - ???3
       </div>
       <GrassTexture/>
       <PixelPath/>
@@ -315,6 +317,7 @@ function ForestShop({ nearby }) {
     </div>
   );
 }
+
 function FruitNode({ fruit, collected, nearby }) {
   if (collected) {
     return <div style={{ position:"absolute", left: fruit.x, top: fruit.y, width: 20, height: 8, background:"rgba(0,0,0,0.35)", borderRadius:"50%", filter:"blur(1px)", zIndex: 5 }}/>;
@@ -322,12 +325,12 @@ function FruitNode({ fruit, collected, nearby }) {
 
   const color = FRUIT_INFO[fruit.kind].color;
   return (
-    <div title={`${fruit.label} 梨꾩쭛`} style={{ position:"absolute", left: fruit.x, top: fruit.y, width: 34, height: 34, zIndex: 7, pointerEvents:"none", filter: nearby ? `drop-shadow(0 0 10px ${color})` : "none" }}>
+    <div title={`${fruit.label} 梨꾩쭛`} style={{ position:"absolute", left: fruit.x, top: fruit.y, width: 34, height: 34, zIndex: 7, pointerEvents:"none", filter: nearby ? `drop-shadow(0 0 10px ${color})` : "none" }}>
       <span style={{ position:"absolute", left: 6, top: 10, width: 20, height: 18, background: color, borderRadius:"50% 50% 45% 45%", boxShadow:`inset -4px -4px 0 rgba(0,0,0,0.22), 0 0 10px ${color}` }}/>
       <span style={{ position:"absolute", left: 17, top: 5, width: 5, height: 9, background:"#3a2d1a", boxShadow:"5px 2px 0 #5a8a6d" }}/>
       {nearby && (
         <span style={{ position:"absolute", left: "50%", top: -18, transform:"translateX(-50%)", padding:"3px 6px", background:"var(--neon-yellow)", color:"#000", fontFamily:"var(--font-pixel)", fontSize:7, whiteSpace:"nowrap", animation:"bob 0.6s ease-in-out infinite alternate" }}>
-          梨꾩쭛 [E]
+          梨꾩쭛 [E]
         </span>
       )}
     </div>
@@ -459,7 +462,7 @@ function House({ near }) {
         <div style={{position:"absolute", left: 94, bottom: -10, width: 76, height: 12, background:"#63e6ff", boxShadow:"inset 0 -3px 0 #2c8eb0", borderRadius:"2px"}}/>
         <div style={{position:"absolute", left: 82, top: 26, width: 100, height: 18, background:"#fff1c7", boxShadow:"inset -2px -2px 0 #d4a020, inset 2px 2px 0 #fff8df, 0 2px 0 #b86a8d", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"var(--font-pixel)", fontSize:7, color:"#b86a8d", textShadow:"1px 1px 0 #fff8df"}}>SOLAR LAB</div>
       </div>
-      {near && <div style={{ position:"absolute", left:"50%", bottom:-32, transform:"translateX(-50%)", fontFamily:"var(--font-pixel)", fontSize:9, background:"var(--neon-yellow)", color:"#000", padding:"4px 8px", whiteSpace:"nowrap", animation:"bob 0.6s ease-in-out infinite alternate" }}>?ㅼ뼱媛湲?[E]</div>}
+      {near && <div style={{ position:"absolute", left:"50%", bottom:-32, transform:"translateX(-50%)", fontFamily:"var(--font-pixel)", fontSize:9, background:"var(--neon-yellow)", color:"#000", padding:"4px 8px", whiteSpace:"nowrap", animation:"bob 0.6s ease-in-out infinite alternate" }}>?ㅼ뼱媛湲?[E]</div>}
     </div>
   );
 }

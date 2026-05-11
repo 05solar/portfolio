@@ -1,0 +1,65 @@
+/* ====== QUEST LOG (Experience) ====== */
+.quest-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.quest {
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  gap: 14px;
+  padding: 12px;
+  background: var(--bg-tile);
+  border-top: 2px solid var(--bevel-deepest);
+  border-left: 2px solid var(--bevel-deepest);
+  border-right: 2px solid var(--bevel-light);
+  border-bottom: 2px solid var(--bevel-light);
+  align-items: center;
+}
+.quest-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--bg-panel);
+  border: 2px solid var(--bevel-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-pixel);
+  font-size: 18px;
+  color: var(--neon-yellow);
+}
+.quest.completed .quest-icon { background: var(--grass); border-color: var(--neon-green); color: var(--neon-green); }
+.quest.active .quest-icon    { background: var(--bg-panel-2); border-color: var(--neon-yellow); color: var(--neon-yellow); animation: blink 1s steps(2) infinite; }
+
+.quest-body { display: flex; flex-direction: column; gap: 2px; }
+.quest-title {
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  color: var(--ink);
+}
+.quest.completed .quest-title { color: var(--neon-green); }
+.quest-meta {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--ink-dim);
+  letter-spacing: 1px;
+}
+.quest-desc {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--ink);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+.quest-reward {
+  text-align: right;
+  font-family: var(--font-pixel);
+  font-size: 9px;
+}
+.quest-reward .xp {
+  color: var(--neon-yellow);
+  display: block;
+}
+.quest-reward .status { color: var(--ink-dim); margin-top: 4px; display: block; }
+.quest.completed .quest-reward .status { color: var(--neon-green); }
+.quest.active .quest-reward .status   { color: var(--neon-yellow); }
