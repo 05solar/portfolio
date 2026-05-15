@@ -23,7 +23,7 @@ import {
   TweaksPanel,
   useTweaks,
 } from "./tweaks-panel.jsx";
-import GambleShop, { GAMBLE_GAMES } from "./GambleShop.jsx";
+import GambleShop from "./GambleShop.jsx";
 import BootScreen from "./BootScreen.jsx";
 import { fruitCount, fruitSaleValue } from "./utils.js";
 import "./styles/crt.css";
@@ -524,12 +524,12 @@ function App() {
       gold: prev.gold + total,
       fruits: {},
     }));
-    setToast(`과일 ${count}개를 팔아 ${total}골드를 얻었습니다.`);
+    setToast(`과일 ${count}개가 ${total}원에 판매되었습니다!`);
   }
   function playGambleGame(game) {
     const gold = inventory.gold || 0;
     if (gold < game.cost) {
-      setToast(`${game.cost}골드가 필요합니다.`);
+      setToast(`${game.cost}원이 필요합니다.`);
       return;
     }
 
@@ -540,7 +540,7 @@ function App() {
       ...prev,
       gold: Math.max(0, (prev.gold || 0) + delta),
     }));
-    setToast(won ? `${game.name} 성공! ${game.reward}골드 획득.` : `${game.name} 실패... ${game.cost}골드를 잃었습니다.`);
+    setToast(won ? `${game.name} 성공! ${game.reward}원을 얻었습니다.` : `${game.name} 실패... ${game.cost}원을 잃었습니다.`);
   }
 
   const nearSign = nearestSign(pos);
